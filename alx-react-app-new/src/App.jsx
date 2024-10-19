@@ -1,3 +1,5 @@
+import React from 'react';
+import Counter from './components/Counter';
 import UserProfile from './components/UserProfile';
 
 import Header from './components/Header';
@@ -41,6 +43,8 @@ function App() {
             <MainContent />
             <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
             <Footer />
+            <h1>Simple Counter App</h1>
+      <Counter />
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
