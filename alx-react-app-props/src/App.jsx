@@ -20,8 +20,10 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-  
-    <>
+                <>
+        <UserContext.Provider value={userData}>
+          <ProfilePage />
+        </UserContext.Provider>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -47,10 +49,7 @@ function App() {
             <MainContent />
             <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
             <Footer />
-        <UserContext.Provider value={userData}>
-          <ProfilePage />
-        </UserContext.Provider>
-      </div>
+          </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
