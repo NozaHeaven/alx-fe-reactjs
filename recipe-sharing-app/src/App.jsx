@@ -1,4 +1,8 @@
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import RecipeList from './components/RecipeList';
+import RecipeDetails from './components/RecipeDetails';
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import RecipeDetails from './components/RecipeDetails'; // Assuming you have RecipeDetails import React from 'react';
@@ -50,6 +54,9 @@ function App() {
             <Route path="/" element={<RecipeList />} />
             <Route path="/add" element={<AddRecipeForm />} />
             <Route path="/recipe/:recipeId" element={<RecipeDetails />} />
+            {/* Favorites and Recommendations Section */}
+            <FavoritesList />
+            <RecommendationsList />
           </Routes>
         </div>
       </Router>
