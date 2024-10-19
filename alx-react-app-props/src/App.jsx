@@ -21,9 +21,9 @@ function App() {
 
   return (
                 <>
-        <UserContext.Provider value={userData}>
-          <ProfilePage />
-        </UserContext.Provider>
+        <UserContext.Provider value={userData}>  {/* Wrap with Provider */}
+      <ProfilePage />
+    </UserContext.Provider>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
