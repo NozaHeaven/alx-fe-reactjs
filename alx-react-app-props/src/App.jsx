@@ -21,6 +21,9 @@ function App() {
 
   return (
     <>
+      <UserContext.Provider value={userData}>  {/* Wrap with Provider */}
+        <ProfilePage />
+      </UserContext.Provider>
     <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -47,10 +50,7 @@ function App() {
             <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
             <Footer />
           </div>
-    <UserContext.Provider value={userData}>  {/* Wrap with Provider */}
-      <ProfilePage />
-    </UserContext.Provider>
-              <p className="read-the-docs">
+          <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
