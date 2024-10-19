@@ -1,3 +1,7 @@
+import React from 'react';
+import RecipeList from './components/RecipeList';
+import SearchBar from './components/SearchBar';
+import AddRecipeForm from './components/AddRecipeForm'; // Assuming you've implemented this
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
@@ -46,6 +50,12 @@ function App() {
           </Routes>
         </div>
       </Router>
+      <div style={{ padding: '20px' }}>
+        <h1>Recipe Sharing App</h1>
+        <SearchBar />
+        <AddRecipeForm />
+        <RecipeList />
+      </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
