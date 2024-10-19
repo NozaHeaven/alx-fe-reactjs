@@ -1,3 +1,4 @@
+import React from 'react';
 import ProfilePage from './ProfilePage';
 import UserContext from './UserContext';
 
@@ -15,7 +16,7 @@ import './App.css'
 
 function App() {
   const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
-  
+
   const [count, setCount] = useState(0)
 
   return (
@@ -47,7 +48,7 @@ function App() {
             <UserProfile name="Alice" age="25" bio="Loves hiking and photography" />
             <Footer />
         <UserContext.Provider value={userData}>
-        <ProfilePage />
+          <ProfilePage />
         </UserContext.Provider>
       </div>
       <p className="read-the-docs">
