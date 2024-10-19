@@ -7,3 +7,8 @@ function UserInfo() {
 }
 
 export default UserInfo;
+
+// UserInfo.jsx
+function UserInfo() {
+    return <UserDetails />;
+  }
