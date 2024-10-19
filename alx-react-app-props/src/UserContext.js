@@ -1,9 +1,18 @@
-import React, { createContext, useState } from 'react';
+import React from 'react';
+import MyContext from './MyContext';
 
-// Create a Context with default user data
-const UserContext = createContext({
-  name: '',
-  email: '',
-});
+function MyProvider({ children }) {
+  const contextValue = {
+    name: 'John Doe',
+    age: 30,
+  };
 
-export default UserContext;
+  return (
+    <MyContext.Provider value={contextValue}>
+      {children}
+    </MyContext.Provider>
+  );
+}
+
+export default MyProvider;
+
