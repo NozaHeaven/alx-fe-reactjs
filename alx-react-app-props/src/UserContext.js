@@ -1,18 +1,8 @@
-import React from 'react';
-import MyContext from './MyContext';
+import React, { createContext } from 'react';
 
-function MyProvider({ children }) {
-  const contextValue = {
-    name: 'John Doe',
-    age: 30,
-  };
+const UserContext = createContext({
+  name: '',
+  email: '',
+});
 
-  return (
-    <MyContext.Provider value={contextValue}>
-      {children}
-    </MyContext.Provider>
-  );
-}
-
-export default MyProvider;
-
+export default UserContext;
