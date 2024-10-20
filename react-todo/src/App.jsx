@@ -1,25 +1,25 @@
-import TodoList from './components/TodoList';
+import TodoList from './TodoList';
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import Login from './components/Login';
-import BlogPost from './components/BlogPost';
-import ProtectedRoute from './components/ProtectedRoute';
+import Home from './__tests__/components/Home';
+import Profile from './__tests__/components/Profile';
+import Login from './__tests__/components/Login';
+import BlogPost from './__tests__/components/BlogPost';
+import ProtectedRoute from './__tests__/components/ProtectedRoute';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import Login from './components/Login';
-import BlogPost from './components/BlogPost';
-import ProtectedRoute from './components/ProtectedRoute';
-import Post from './components/Post';
+import Home from './__tests__/components/Home';
+import Profile from './__tests__/components/Profile';
+import Login from './__tests__/components/Login';
+import BlogPost from './__tests__/components/BlogPost';
+import ProtectedRoute from './__tests__/components/ProtectedRoute';
+import Post from './__tests__/components/Post';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import Login from './components/Login';
+import Home from './__tests__/components/Home';
+import Profile from './__tests__/components/Profile';
+import Login from './__tests__/components/Login';
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
