@@ -1,110 +1,109 @@
 import React, { useState } from 'react';
-import fetchAdvancedUserData from '../services/githubService';
+import { fetchAdvancedUserData } from '../services/githubService';
 
 const Search = () => {
-    const [username, setUsername] = useState('');
-    const [location, setLocation] = useState('');
-    const [minRepos, setMinRepos] = useState('');
-    const [userData, setUserData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
-    const [page, setPage] = useState(1); // State to track the current page
+  // State for input values
+  const [username, setUsername] = useState('');
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState(0);
+  const [page, setPage] = useState(1); // for pagination
 
-    // Function to handle form submission
-    const handleSearch = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        setError(null);
-        setUserData([]);  // Clear the previous search results
-        setPage(1);  // Reset to page 1 on new search
+  // State for search results
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-        try {
-            const data = await fetchAdvancedUserData(username, location, minRepos, 1);
-            setUserData(data.items);
-        } catch (err) {
-            setError("Looks like we can't find the user based on your search criteria");
-        } finally {
-            setLoading(false);
-        }
-    };
+  // Handle form submission
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+    
+    try {
+      const data = await fetchAdvancedUserData(username, location, minRepos, page);
+      setResults(data.items); // GitHub returns search results in `items`
+      setLoading(false);
+    } catch (err) {
+      setError('Looks like we can’t find the user.');
+      setLoading(false);
+    }
+  };
 
-    // Function to load more data
-    const loadMore = async () => {
-        setLoading(true);
-        setError(null);
+  // Handle "Load More" for pagination
+  const handleLoadMore = async () => {
+    setPage(page + 1);
+    try {
+      const data = await fetchAdvancedUserData(username, location, minRepos, page + 1);
+      setResults([...results, ...data.items]); // Append new results to the existing ones
+    } catch (err) {
+      setError('Error fetching more users.');
+    }
+  };
 
-        try {
-            const data = await fetchAdvancedUserData(username, location, minRepos, page + 1);
-            setUserData(prevUserData => [...prevUserData, ...data.items]); // Append new data
-            setPage(page + 1); // Increment page
-        } catch (err) {
-            setError("Error loading more users");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    return (
-        <div className="container mx-auto p-4">
-            {/* Form for search input */}
-            <form onSubmit={handleSearch} className="mb-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <input
-                        type="text"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        placeholder="GitHub Username"
-                        className="border border-gray-300 rounded p-2"
-                    />
-                    <input
-                        type="text"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        placeholder="Location"
-                        className="border border-gray-300 rounded p-2"
-                    />
-                    <input
-                        type="number"
-                        value={minRepos}
-                        onChange={(e) => setMinRepos(e.target.value)}
-                        placeholder="Minimum Repositories"
-                        className="border border-gray-300 rounded p-2"
-                    />
-                </div>
-                <button type="submit" className="bg-blue-500 text-white rounded p-2 mt-4">
-                    Search
-                </button>
-            </form>
-
-            {/* Loading, Error, and Results */}
-            {loading && <p>Loading...</p>}
-            {error && <p className="text-red-500">{error}</p>}
-            {userData.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {userData.map((user) => (
-                        <div key={user.id} className="border p-4 rounded shadow">
-                            <h2 className="text-xl font-bold">{user.login}</h2>
-                            <img src={user.avatar_url} alt={user.login} className="w-24 h-24 rounded-full" />
-                            <p>Location: {user.location || 'Not available'}</p>
-                            <p>Repositories: {user.public_repos || 'Not available'}</p>
-                            <a href={user.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-                                View Profile
-                            </a>
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            {/* Load More Button */}
-            {userData.length > 0 && (
-                <button
-                    onClick={loadMore}
-                    className="bg-gray-300 text-black p-2 rounded mt-4">
-                    Load More
-                </button>
-            )}
+  return (
+    <div className="max-w-4xl mx-auto p-4">
+      <form onSubmit={handleSearch} className="mb-4">
+        <div className="flex flex-col sm:flex-row gap-4">
+          <input
+            type="text"
+            placeholder="Search GitHub Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="text"
+            placeholder="Location (optional)"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="number"
+            placeholder="Min Repos (optional)"
+            value={minRepos}
+            onChange={(e) => setMinRepos(e.target.value)}
+            className="p-2 border border-gray-300 rounded"
+          />
+          <button
+            type="submit"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          >
+            Search
+          </button>
         </div>
-    );
+      </form>
+
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {results.map((user) => (
+          <div key={user.id} className="p-4 border border-gray-300 rounded shadow">
+            <img src={user.avatar_url} alt={user.login} className="w-16 h-16 rounded-full" />
+            <h2 className="text-xl font-bold">{user.login}</h2>
+            <a
+              href={user.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-500"
+            >
+              View Profile
+            </a>
+          </div>
+        ))}
+      </div>
+
+      {results.length > 0 && (
+        <button
+          onClick={handleLoadMore}
+          className="bg-gray-300 p-2 mt-4 rounded hover:bg-gray-400"
+        >
+          Load More
+        </button>
+      )}
+    </div>
+  );
 };
 
 export default Search;
