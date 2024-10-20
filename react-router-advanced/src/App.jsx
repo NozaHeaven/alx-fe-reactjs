@@ -5,6 +5,13 @@ import Profile from './components/Profile';
 import Login from './components/Login';
 import BlogPost from './components/BlogPost';
 import ProtectedRoute from './components/ProtectedRoute';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import Login from './components/Login';
+import BlogPost from './components/BlogPost';
+import ProtectedRoute from './components/ProtectedRoute';
 import Post from './components/Post';
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
@@ -49,7 +56,14 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile/*" element={<Profile />} />
+        <Route
+          path="/profile/*"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/blog/:id" element={<BlogPost />} />
       </Routes>
