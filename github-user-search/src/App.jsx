@@ -1,3 +1,6 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Search from './components/Search';
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -25,6 +28,13 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
+      <Router>
+            <div className="p-4">
+                <h1 className="text-2xl font-bold mb-4">GitHub User Search</h1>
+                <Search />
+                {/* Add other routes/components here if needed */}
+            </div>
+      </Router>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
