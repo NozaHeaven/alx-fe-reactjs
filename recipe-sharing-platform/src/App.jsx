@@ -1,3 +1,5 @@
+
+import RecipeDetail from './components/RecipeDetail'; 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import { useState } from 'react'
@@ -32,7 +34,11 @@ function App() {
       </div>
       <Router>
         <Routes>
-        <Route path="/" element={<HomePage />} />
+          {/* Home Page route */}
+          <Route path="/" element={<HomePage />} />
+
+          {/* Recipe Detail route with dynamic :id */}
+          <Route path="/recipe/:id" element={<RecipeDetail />} />
         </Routes>
       </Router>
       <p className="read-the-docs">

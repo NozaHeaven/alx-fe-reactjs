@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';  // Ensure Link is imported
 import { useState, useEffect } from 'react';
 
 const HomePage = () => {
@@ -28,7 +28,7 @@ const HomePage = () => {
             <h2 className="text-xl font-bold mt-4">{recipe.title}</h2>
             <p className="text-gray-600 mt-2">{recipe.summary}</p>
 
-            {/* Link to Recipe Detail Page */}
+            {/* Add a Link to Recipe Detail page */}
             <Link to={`/recipe/${recipe.id}`} className="text-blue-500 mt-4 inline-block">
               View Recipe
             </Link>
