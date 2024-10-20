@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { fetchUserData } from '../services/githubService'; // Importing fetchUserData
+import { fetchUserData } from '../services/githubService';  // Correct function import
 
 const Search = () => {
   const [username, setUsername] = useState('');
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState(0);
+  const [page, setPage] = useState(1);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -14,12 +17,23 @@ const Search = () => {
     setError('');
     
     try {
-      const data = await fetchUserData(username); // Call to fetchUserData
-      setResults(data.items || []); // Assuming data.items holds the user data
+      const data = await fetchUserData(username, location, minRepos, page);
+      setResults(data.items);
       setLoading(false);
     } catch (err) {
-      setError('Looks like we can’t find the user.'); // Error handling
+      setError('Looks like we can’t find the user.');
       setLoading(false);
+    }
+  };
+
+  // Handle "Load More" for pagination
+  const handleLoadMore = async () => {
+    setPage(page + 1);
+    try {
+      const data = await fetchUserData(username, location, minRepos, page + 1);
+      setResults([...results, ...data.items]);
+    } catch (err) {
+      setError('Error fetching more users.');
     }
   };
 
@@ -33,7 +47,20 @@ const Search = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="p-2 border border-gray-300 rounded"
-            required // Required field
+          />
+          <input
+            type="text"
+            placeholder="Location (optional)"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            className="p-2 border border-gray-300 rounded"
+          />
+          <input
+            type="number"
+            placeholder="Min Repos (optional)"
+            value={minRepos}
+            onChange={(e) => setMinRepos(e.target.value)}
+            className="p-2 border border-gray-300 rounded"
           />
           <button
             type="submit"
@@ -63,6 +90,15 @@ const Search = () => {
           </div>
         ))}
       </div>
+
+      {results.length > 0 && (
+        <button
+          onClick={handleLoadMore}
+          className="bg-gray-300 p-2 mt-4 rounded hover:bg-gray-400"
+        >
+          Load More
+        </button>
+      )}
     </div>
   );
 };
