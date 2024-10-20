@@ -25,7 +25,7 @@ const AddRecipeForm = () => {
 
     // Here you would typically send the data to the backend or update the state
     console.log({ title, ingredients: ingredientsList, instructions });
-    
+
     // Clear the form
     setTitle('');
     setIngredients('');
@@ -78,7 +78,7 @@ const AddRecipeForm = () => {
         </button>
       </form>
     </div>
-      );
+  );
 };
 
 export default AddRecipeForm;
