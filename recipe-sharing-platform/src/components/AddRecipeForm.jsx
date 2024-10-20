@@ -3,7 +3,7 @@ import { useState } from 'react';
 const AddRecipeForm = () => {
   const [title, setTitle] = useState('');
   const [ingredients, setIngredients] = useState('');
-  const [instructions, setInstructions] = useState('');
+  const [steps, setSteps] = useState(''); // Changed from instructions to steps
   const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
@@ -11,7 +11,7 @@ const AddRecipeForm = () => {
     setError('');
 
     // Validation
-    if (!title || !ingredients || !instructions) {
+    if (!title || !ingredients || !steps) { // Updated to check steps
       setError('Please fill out all fields.');
       return;
     }
@@ -24,12 +24,12 @@ const AddRecipeForm = () => {
     }
 
     // Here you would typically send the data to the backend or update the state
-    console.log({ title, ingredients: ingredientsList, instructions });
+    console.log({ title, ingredients: ingredientsList, steps }); // Updated to log steps
 
     // Clear the form
     setTitle('');
     setIngredients('');
-    setInstructions('');
+    setSteps(''); // Updated to clear steps
   };
 
   return (
@@ -60,11 +60,11 @@ const AddRecipeForm = () => {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="instructions" className="block text-sm font-medium text-gray-700">Preparation Steps</label>
+          <label htmlFor="steps" className="block text-sm font-medium text-gray-700">Preparation Steps</label>
           <textarea
-            id="instructions"
-            value={instructions}
-            onChange={(e) => setInstructions(e.target.value)}
+            id="steps" // Updated id to match state variable
+            value={steps}
+            onChange={(e) => setSteps(e.target.value)} // Updated to set steps
             className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             rows="4"
             required
