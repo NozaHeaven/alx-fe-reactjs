@@ -1,4 +1,8 @@
 
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import RecipeDetail from './components/RecipeDetail';
+import AddRecipePage from './components/AddRecipePage';
 import RecipeDetail from './components/RecipeDetail'; 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './components/HomePage';
@@ -33,13 +37,11 @@ function App() {
         Hello, Tailwind!
       </div>
       <Router>
-        <Routes>
-          {/* Home Page route */}
-          <Route path="/" element={<HomePage />} />
-
-          {/* Recipe Detail route with dynamic :id */}
-          <Route path="/recipe/:id" element={<RecipeDetail />} />
-        </Routes>
+       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/add-recipe" element={<AddRecipePage />} />
+       </Routes>
       </Router>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
