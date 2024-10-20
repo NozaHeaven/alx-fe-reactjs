@@ -1,3 +1,5 @@
+import TodoList from './components/TodoList';
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';
@@ -45,6 +47,10 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
+      </div>
+      <div>
+        <h1>Todo List</h1>
+        <TodoList /> {/* Use the TodoList component here */}
       </div>
       <Router>
       <nav>
