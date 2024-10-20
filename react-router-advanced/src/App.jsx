@@ -40,27 +40,22 @@ function App() {
         </p>
       </div>
       <Router>
-        <nav>
-          <Link to="/">Home</Link>
-          <Link to="/profile">Profile</Link>
-          <Link to="/login">Login</Link>
-        </nav>
-        <Router>
-        <nav>
+      <nav>
         <Link to="/">Home</Link>
         <Link to="/profile">Profile</Link>
         <Link to="/login">Login</Link>
         <Link to="/blog/1">Blog Post 1</Link>
         <Link to="/blog/2">Blog Post 2</Link>
-        </nav>
-        <Routes>
+      </nav>
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile/*" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/blog/:id" element={<BlogPost />} />
-        </Routes>
-      </Router>
-      <p className="read-the-docs">
+      </Routes>
+    </Router>
+  );
+        <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
