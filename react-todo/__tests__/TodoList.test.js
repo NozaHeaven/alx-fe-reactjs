@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import TodoList from './TodoList';
+import TodoList from '../src/TodoList.jsx';
 
 test('renders initial todos', () => {
   render(<TodoList />);
@@ -33,4 +33,3 @@ test('adds a new todo', () => {
   
     // Add assertions to check if the todo is no longer present
   });
-  
