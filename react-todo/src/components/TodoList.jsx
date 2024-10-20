@@ -1,4 +1,4 @@
-// src/components/TodoList.jsx
+// src/components/TodoList.js
 import React, { useState } from 'react';
 
 const TodoList = () => {
@@ -9,25 +9,25 @@ const TodoList = () => {
     ]);
     const [newTodo, setNewTodo] = useState('');
 
-    const addTodo = () => {
-        if (newTodo.trim() === '') return;
-        setTodos([
-            ...todos,
-            { id: Date.now(), text: newTodo, completed: false },
-        ]);
-        setNewTodo('');
-    };
-
     const toggleTodo = (id) => {
-        setTodos(
-            todos.map(todo =>
+        setTodos((prevTodos) =>
+            prevTodos.map((todo) =>
                 todo.id === id ? { ...todo, completed: !todo.completed } : todo
             )
         );
     };
 
     const deleteTodo = (id) => {
-        setTodos(todos.filter(todo => todo.id !== id));
+        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    };
+
+    const addTodo = () => {
+        if (newTodo.trim() === '') return; // Prevent adding empty todos
+        setTodos((prevTodos) => [
+            ...prevTodos,
+            { id: Date.now(), text: newTodo, completed: false }, // Use Date.now() for unique ID
+        ]);
+        setNewTodo(''); // Clear the input after adding
     };
 
     return (
@@ -44,14 +44,20 @@ const TodoList = () => {
                 Add
             </button>
             <ul className="mt-4">
-                {todos.map(todo => (
+                {todos.map((todo) => (
                     <li
                         key={todo.id}
                         onClick={() => toggleTodo(todo.id)}
                         className={`cursor-pointer ${todo.completed ? 'line-through' : ''}`}
                     >
                         {todo.text}
-                        <button onClick={() => deleteTodo(todo.id)} className="bg-red-500 text-white p-1 ml-2">
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent the click from triggering the li click event
+                                deleteTodo(todo.id);
+                            }}
+                            className="bg-red-500 text-white p-1 ml-2"
+                        >
                             Delete
                         </button>
                     </li>
