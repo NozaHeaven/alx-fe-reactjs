@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HomePage from './components/HomePage';
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
@@ -28,6 +30,11 @@ function App() {
       <div className="text-blue-500">
         Hello, Tailwind!
       </div>
+      <Router>
+        <Routes>
+        <Route path="/" element={<HomePage />} />
+        </Routes>
+      </Router>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
